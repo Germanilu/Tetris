@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 
-
+//Create the object stats
 const buildGameStats = () => ({
     level: 1,
     linesCompleted: 0,
@@ -8,13 +8,12 @@ const buildGameStats = () => ({
     points: 0
 });
 
-const useGameStats = () => {
 
+const useGameStats = () => {
+    //Hook gameStats that use the object above as initial state
     const [gameStats, setGameStats] = useState(buildGameStats());
 
-    const addLinesCleared = useCallback (() => {
-
-    },[])
+    const addLinesCleared = useCallback (() => {},[])
 
     return [gameStats, addLinesCleared];
 }
