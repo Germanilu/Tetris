@@ -26,3 +26,5 @@ const Game = ({rows,columns}) => {
 }
 
 export default Game;
+
+
