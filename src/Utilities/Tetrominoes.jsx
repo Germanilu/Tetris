@@ -71,7 +71,7 @@ export const randomTetromino = () => {
 }
 
 
-//Pass an object to transferToBoard
+//Given a board a shape and starting position, transfer all the individual component to the board and track if the cell is occupied or not.
 export const  transferToBoard = ({className,isOccupied,position,rows,shape}) => {
     //Foreach tetromino shape row and cell if it's occupied we set the row position and the column position to place the tetromino 
     shape.forEach((row, y) => {
@@ -87,4 +87,5 @@ export const  transferToBoard = ({className,isOccupied,position,rows,shape}) => 
     });
     return rows;
 }
+
 

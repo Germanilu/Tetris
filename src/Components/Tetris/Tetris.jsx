@@ -13,11 +13,11 @@ const Tetris = ({rows, columns, setGameOver}) => {
 
     //Custom Hook gameStats that show all the stats on the right side of the game
     const [gameStats, addLinesCleared] = useGameStats();
-    //Custom hook useBoard that takes rows and columns and build the actual board
-    const [board, setBoard] = useBoard({rows, columns});
     //Custom hook that create the player 
     const [player, setPlayer, resetPlayer] = usePlayer();
-
+    
+    //Custom hook useBoard that takes rows and columns and build the actual board
+    const [board, setBoard] = useBoard({rows, columns, player, resetPlayer, addLinesCleared,});
     
 
     return (

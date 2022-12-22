@@ -1,7 +1,7 @@
 import "./Preview.css";
 import React from "react";
 
-import buildBoard from "../../Utilities/Board";
+import {buildBoard} from "../../Utilities/Board";
 import {transferToBoard} from "../../Utilities/Tetrominoes";
 
 import BoardCell from "../BoardCell/BoardCell";
