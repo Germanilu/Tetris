@@ -70,6 +70,19 @@ export const randomTetromino = () => {
     return TETROMINOES[key]
 }
 
+//Here we take a piece and the direction we want to rotate 
+export const rotate = ({ piece, direction}) => {
+    //Transpose rows and columns
+    const newPiece = piece.map ((_, index) => 
+    piece.map((column) => column[index])
+    );
+
+    //Flip the shape arrownd depending on which side is rotating
+    if (direction > 0) return newPiece.map((row) => row.reverse());
+
+    return newPiece.reverse();
+}
+
 
 //Given a board a shape and starting position, transfer all the individual component to the board and track if the cell is occupied or not.
 export const  transferToBoard = ({className,isOccupied,position,rows,shape}) => {

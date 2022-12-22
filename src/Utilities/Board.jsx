@@ -14,6 +14,7 @@ export const  buildBoard = ({rows, columns}) => {
     };
 }
 
+
 // This function take all the props and acces the tetromino and the position of the player
 export const nextBoard = ({board, player, resetPlayer, addLinesCleared}) => {
     const { tetromino, position} = player;
@@ -38,3 +39,47 @@ export const nextBoard = ({board, player, resetPlayer, addLinesCleared}) => {
         size: { ...board.size}
     };
 }
+
+
+//Checking if there is collision
+export const hasCollision = ({board, position, shape}) => {
+    //for a given row in the shape 
+    for(let y = 0; y < shape.length; y++){
+        const row = y + position.row;
+        //And for a given column 
+        for(let x = 0; x< shape[y].length; x++){
+            //if is occupied we care about the column
+            if(shape[y][x]){
+                const column = x + position.column;
+                //and if we have a row and column occupied we return true
+                if(board.rows[row] && board.rows[row][column] && board.rows[row][column].occupied){
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+};
+
+
+//We take board, position and shape..
+export const isWithinBoard = ({ board,position,shape}) => {
+    //for that shape we go trough each row and trough each of the column 
+    for( let y = 0; y < shape.length; y++){
+        const row = y + position.row;
+
+        for(let x = 0; x < shape[y].length; x++){
+            //We check if for that given row and column there is a piece of the tetromino
+            if(shape[y][x]){
+                //Any place we have a tetromino we need to look is there is anything in there or not.
+                const column = x + position.column;
+                //isvalidposition check if we are not outside the board.
+                const isValidPosition = board.rows[row] && board.rows[row][column];
+
+                if(!isValidPosition) return false;
+            }
+        }
+    }
+    return true;
+}
+
