@@ -8,7 +8,7 @@ const buildPlayer = (previous) => {
 
     //Building the tetrominoes
     if(previous) {
-        tetrominoes = [...previous.tetromino];
+        tetrominoes = [ ...previous.tetrominoes];
         tetrominoes.unshift(randomTetromino());
     }else {
         //If no tetrominoes will generate one 
@@ -24,14 +24,15 @@ const buildPlayer = (previous) => {
     }
 }
 
-
 export const usePlayer = () => {
     //Get the player state and the setter using useState and the values providing by buildPlayer
     const [player, setPlayer] = useState(buildPlayer());
-    // SetUp resetPlayer and take the previouse value and pass to build player and update.
+  // SetUp resetPlayer and take the previouse value and pass to build player and update.
     const resetPlayer = useCallback(() => {
-        setPlayer((prev) => buildPlayer(prev));
+      setPlayer((prev) => buildPlayer(prev));
     }, []);
-    
+  
     return [player, setPlayer, resetPlayer];
-}
+  };
+
+
