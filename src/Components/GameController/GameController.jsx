@@ -2,6 +2,8 @@ import "./GameController.css"
 import {Action, actionForKey} from "../../Utilities/Input"
 import { playerController } from "../../Utilities/PlayerController";
 
+//Hook to use timeout on react 
+import { useInterval} from "../../Hooks/useInterval";
 
 const GameController = ({board, gameStats, player, setGameOver, setPlayer}) => {
 
