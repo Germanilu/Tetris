@@ -7,6 +7,10 @@ import { useInterval} from "../../Hooks/useInterval";
 
 const GameController = ({board, gameStats, player, setGameOver, setPlayer}) => {
 
+    //Calling the hook and using the action slowDrop every second
+    useInterval(() => {
+        handleInput({ action: Action.SlowDrop});
+    }, 1000);
 
     //Here everyTime we press a key we check in Input.jsx what was pressed and manage the game
     const onKeyUp = ({ code }) => {
@@ -31,9 +35,6 @@ const GameController = ({board, gameStats, player, setGameOver, setPlayer}) => {
             setGameOver
         })
     }
-
-
-
 
     return(
         //Input that is Hide on the bottom of the game with autofocus, to control the game with Keys
