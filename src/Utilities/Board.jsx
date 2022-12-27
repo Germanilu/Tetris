@@ -1,5 +1,6 @@
 import {defaultCell} from "./Cell"
-import { transferToBoard} from "./Tetrominoes"
+import {movePlayer} from "../Utilities/PlayerController"
+import {transferToBoard} from "./Tetrominoes"
 //We take the rows and columns, we create an Array for the rows and for each row we make an array for the columns
 // and then for each column on the board we set up a defaultCell that represent the default cell on the board
 export const  buildBoard = ({rows, columns}) => {
@@ -14,6 +15,29 @@ export const  buildBoard = ({rows, columns}) => {
     };
 }
 
+//Finding the drop position of the tetromino 
+const findDropPosition = ({board, position,shape}) => {
+    //finding the max 
+    let max = board.size.rows - position.row +1;
+    let row = 0;
+
+    //For loop that keep trying to place the piece and see if he get a collision or not
+    for ( let i = 0; i<max; i++){
+
+        const delta = { row: i, column: 0};
+        const result = movePlayer({delta,position,shape,board});
+        const { collided } = result;
+
+        if(collided){
+            break
+        }
+
+        row = position.row + i
+    }
+
+    return { ...position, row};
+}
+
 
 // This function take all the props and acces the tetromino and the position of the player
 export const nextBoard = ({board, player, resetPlayer, addLinesCleared}) => {
@@ -24,14 +48,22 @@ export const nextBoard = ({board, player, resetPlayer, addLinesCleared}) => {
     row.map((cell) => (cell.occupied? cell: {...defaultCell}))
     );
 
-    //Update the rows and assign the classname, is is occupied the starting position, the rows and the shape.
-    rows = transferToBoard({
-        className: tetromino.className,
-        isOccupied: player.collided,
-        position,
-        rows,
-        shape: tetromino.shape
-    });
+
+    //Drop Position
+    const dropPosition = findDropPosition({board, position, shape: tetromino.shape});
+
+    //Adding player ghost on board
+    const className = `${tetromino.className} ${player.isFastDropping ? "" : "ghost"}`;
+    //Transferring the ghost to the board all time 
+    rows = transferToBoard({className, isOccupied: player.isFastDropping, position:dropPosition, rows, shape: tetromino.shape})
+
+    
+    //Placing the piece if it collided, mark the board cell as collided
+
+    if( !player.isFastDropping){
+        rows = transferToBoard({className:tetromino.className, isOccupied:player.collided, position, rows, shape:tetromino.shape})
+    }
+
 
     //If we collided, reset the player!
     if (player.collided || player.isFastDropping) {
