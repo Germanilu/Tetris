@@ -22,4 +22,7 @@ export const Key = {
     Space: Action.FastDrop
 };
 
+//Given an action either ( SlowDrop or FastDrop) keeping the action given 
+export const actionIsDrop = (action) => [Action.SlowDrop, Action.FastDrop].includes(action);
+
 export const actionForKey = (keyCode) => Key[keyCode];

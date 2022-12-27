@@ -1,5 +1,5 @@
 import "./GameController.css"
-import {Action, actionForKey} from "../../Utilities/Input"
+import {Action, actionForKey, actionIsDrop} from "../../Utilities/Input"
 import { playerController } from "../../Utilities/PlayerController";
 
 //Hook to use timeout on react 
@@ -19,6 +19,7 @@ const GameController = ({board, gameStats, player, setGameOver, setPlayer}) => {
     //Here everyTime we press a key we check in Input.jsx what was pressed and manage the game
     const onKeyUp = ({ code }) => {
         const action = actionForKey(code)
+        if (actionIsDrop(action)) resumeDropTime()
     }
 
     const onKeyDown = ({ code }) => {
@@ -34,6 +35,7 @@ const GameController = ({board, gameStats, player, setGameOver, setPlayer}) => {
         }else if(action === Action.Quit){
             setGameOver(true)
         } else{
+            if( actionIsDrop(action)) pauseDropTime();
             handleInput({ action });
         }
     };
