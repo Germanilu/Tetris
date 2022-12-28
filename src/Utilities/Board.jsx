@@ -64,6 +64,27 @@ export const nextBoard = ({board, player, resetPlayer, addLinesCleared}) => {
         rows = transferToBoard({className:tetromino.className, isOccupied:player.collided, position, rows, shape:tetromino.shape})
     }
 
+    //Check for cleared Lines
+    //For any given row, generate a new row using the default cell ( blank cell )
+    const blankRow = rows[0].map((_) => ( { ...defaultCell}));
+    //Keeping track of how many lines are cleared
+    let linesCleared = 0;
+    //Cleaning the line if all the cell are occupied 
+    rows = rows.reduce((acc, row) => {
+        if (row.every((column) => column.occupied)) {
+            linesCleared++;
+            acc.unshift([...blankRow]);
+        } else{
+            acc.push(row)
+        }
+        //Returning the accumulator
+        return acc;
+    }, []);
+
+    if( linesCleared > 0) {
+        addLinesCleared(linesCleared)
+    }
+
 
     //If we collided, reset the player!
     if (player.collided || player.isFastDropping) {
