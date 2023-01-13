@@ -12,7 +12,7 @@ const Preview = ({ tetromino, index}) => {
     //Here i build the board with 4rows and 4 columns
     const board = buildBoard({ rows: 4, columns: 4});
     //Position the preview inside the box depending on the tetromino i have
-    const style = { top: `${index * 15}vw`};
+    const style = { top: `${index * 12.9}vw`};
 
     //For the previouse board i transfer the tetromino that i'm using to the board
     board.rows = transferToBoard({
